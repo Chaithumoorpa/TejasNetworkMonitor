@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.tejasnetwork.viewmodel.NetworkViewModel
+import androidx.compose.runtime.collectAsState
 
 class MainActivity : ComponentActivity() {
     private val networkViewModel: NetworkViewModel by viewModels()
@@ -30,6 +31,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun NetworkMonitorScreen(networkViewModel: NetworkViewModel = viewModel()) {
     val networkStatus by networkViewModel.networkStatus.collectAsState()
+    val networkSpeed by networkViewModel.networkSpeed.collectAsState()
 
     Scaffold(
         topBar = {
@@ -53,6 +55,15 @@ fun NetworkMonitorScreen(networkViewModel: NetworkViewModel = viewModel()) {
                 style = MaterialTheme.typography.headlineLarge,
                 color = if (networkStatus == "Online") Color.Green else Color.Red
             )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Text("Network Speed:", style = MaterialTheme.typography.titleMedium)
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Text(networkSpeed, style = MaterialTheme.typography.bodyLarge)
         }
+
     }
 }
