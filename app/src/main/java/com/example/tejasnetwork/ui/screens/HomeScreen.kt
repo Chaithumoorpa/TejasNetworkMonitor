@@ -16,11 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import com.example.tejasnetwork.utils.NetworkUtils
-import com.example.tejasnetwork.utils.SpeedTest
+
 
 @Composable
 fun HomeScreen(onItemClick: (String) -> Unit) {
@@ -33,7 +29,7 @@ fun HomeScreen(onItemClick: (String) -> Unit) {
     val icons = listOf(
         Icons.Filled.Call, Icons.Filled.NetworkCell, Icons.Filled.Speed,
         Icons.Filled.PhoneAndroid, Icons.Filled.DataUsage, Icons.Filled.Wifi,
-        Icons.Filled.Traffic, Icons.Filled.ShowChart, Icons.Filled.Assessment,
+        Icons.Filled.Traffic, Icons.Filled.BarChart, Icons.Filled.Assessment,
         Icons.Filled.Map, Icons.Filled.Sync, Icons.Filled.Security
     )
 
@@ -89,35 +85,7 @@ fun GridItem(title: String, icon: ImageVector, onClick: () -> Unit) {
     }
 }
 
-@Composable
-fun SpeedTestScreen(context: Context) {
-    val networkType = remember { mutableStateOf("Checking...") }
-    val networkParams = remember { mutableStateOf("Fetching...") }
-    val speedResult = remember { mutableStateOf("Press to Start Speed Test") }
 
-    LaunchedEffect(Unit) {
-        networkType.value = NetworkUtils.getNetworkType(context)
-        networkParams.value = NetworkUtils.getLTEParameters(context)
-    }
-
-    Column(modifier = Modifier.padding(16.dp)) {
-        Text(text = "Network Type: ${networkType.value}", fontSize = 18.sp, fontWeight = FontWeight.Bold)
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(text = "Network Parameters:\n${networkParams.value}", fontSize = 16.sp)
-
-        Spacer(modifier = Modifier.height(16.dp))
-        Button(onClick = {
-            SpeedTest.performSpeedTest(context) { result ->
-                speedResult.value = result
-            }
-        }) {
-            Text(text = "Start Speed Test")
-        }
-
-        Spacer(modifier = Modifier.height(16.dp))
-        Text(text = speedResult.value, fontSize = 18.sp, fontWeight = FontWeight.Bold)
-    }
-}
 
 
 @Preview(showBackground = true)

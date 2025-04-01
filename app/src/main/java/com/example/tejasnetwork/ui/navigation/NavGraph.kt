@@ -17,11 +17,12 @@ fun NavGraph(navController: NavHostController) {
             HomeScreen(onItemClick = { screen ->
                 navController.navigate(screen)  // ✅ Fix: Navigates correctly
             })
-        }
 
+        }
+//        composable(Destinations.SpeedTest) { SpeedTestScreen() }
 //        composable(Destinations.CellularCalls) { CellularCallsScreen() }
 //        composable(Destinations.NetworkSelection) { NetworkSelectionScreen() }
-//        composable(Destinations.SpeedTest) { SpeedTestScreen() }
+
 //        composable(Destinations.DeviceInfo) { DeviceInfoScreen() }
 //        composable(Destinations.DataUsage) { DataUsageScreen() }
 //        composable(Destinations.WifiBehavior) { WifiBehaviorScreen() }
